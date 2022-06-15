@@ -1,0 +1,72 @@
+package com.na.user.member.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.na.user.member.model.service.MemberService;
+import com.na.user.member.model.vo.Member;
+
+/**
+ * Servlet implementation class LoginController
+ */
+@WebServlet("/login.me")
+public class LoginController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public LoginController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+		String userId = request.getParameter("id");
+		String userPwd = request.getParameter("pwd");
+
+		
+		Member m = new Member(userId, userPwd);
+		
+		Member loginUser = new MemberService().login(m);
+		
+		HttpSession session = request.getSession();
+		
+		session.setAttribute("loginUser", loginUser);
+		
+		if(loginUser!=null) {
+			if(loginUser.getUserId().equals("admin")) {
+				session.setAttribute("alertMsg", "로그인 되었습니다.");
+				response.sendRedirect(request.getContextPath()+"/proManageList.pr?currentPage=1");
+			}else {
+			session.setAttribute("alertMsg", "로그인 되었습니다.");
+			response.sendRedirect(request.getContextPath());
+			}
+		} else {
+			String errorMsg = "로그인에 실패하셨습니다.";
+			request.setAttribute("errorMsg", errorMsg);
+			request.getRequestDispatcher("views/user/common/errorPage.jsp").forward(request, response);
+		}
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

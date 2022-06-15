@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="myCartProductInsert">
+		INSERT INTO MY_CART VALUES(SEQ_CART.nextval, ?, 'Y',?, ?)
+	</entry>
+	
+	<entry key="myCartProductSelect">
+		SELECT CART_NO, PRO_NAME, PRO_EFFICACY, PRO_IMG_PATH, CART_AMOUNT, (PRO_PRICE * CART_AMOUNT) TOTAL_P 
+		FROM PRODUCT P, MY_CART C, MEMBER M  
+		WHERE C.MEM_NO = M.MEM_NO AND 
+		C.PRO_NO = P.PRO_NO AND 
+		M.MEM_STATUS = 'Y' AND 
+		P.PRO_STATUS = 'Y' AND 
+		M.MEM_ID = ? AND 
+		C.CART_STATUS = 'Y'
+	</entry>
+	
+	<entry key="cartDelete">
+		DELETE FROM MY_CART WHERE CART_NO =?
+	</entry>
+	
+	
+	<entry key="selectPurchaseList">
+	  SELECT  CART_NO, PRO_NAME, PRO_EFFICACY, PRO_IMG_PATH, CART_AMOUNT, 
+        (PRO_PRICE * CART_AMOUNT) TOTAL_P, MEM_NAME, MEM_EMAIL, PRO_PRICE
+		FROM PRODUCT P, MY_CART C, MEMBER M  
+		WHERE C.MEM_NO = M.MEM_NO AND 
+		C.PRO_NO = P.PRO_NO AND 
+		M.MEM_STATUS = 'Y' AND 
+		P.PRO_STATUS = 'Y' AND 
+		C.CART_NO =? AND 
+		M.MEM_ID =?
+	</entry>
+		
+	
+	<entry key="insertPurchase">
+		INSERT INTO PURCHASE VALUES(SEQ_PUR.NEXTVAL, SYSDATE, '주문완료', ?, ?, ?)
+	</entry>
+	
+	<entry key="updateMyCart">
+		UPDATE MY_CART SET CART_STATUS ='P' WHERE CART_NO = ?
+	</entry>
+	
+	<entry key="selectCompletePurchaseList">
+		SELECT P2.PRO_IMG_PATH, P2.PRO_NAME, P2.PRO_EFFICACY, TO_CHAR(P1.PUR_DATE, 'YY-MM-DD') "P_DATE", (P2.PRO_PRICE * M.CART_AMOUNT) TOT, PUR_STATUS, P2.PRO_PRICE, M.CART_NO
+		FROM (SELECT PUR.PUR_NO, PUR.PUR_DATE, PUR.PUR_ADDRESS, PUR.PUR_STATUS, PUR.CARTLIST, PUR.MEM_NO 
+	   			FROM PURCHASE PUR 
+				WHERE (PUR.MEM_NO, PUR.PUR_DATE) IN (SELECT MEM_NO, MAX(PUR_DATE) FROM PURCHASE GROUP BY MEM_NO)) P1, MY_CART M, PRODUCT P2 
+		WHERE M.CART_NO = ? AND 
+		M.PRO_NO = P2.PRO_NO AND 
+		P1.MEM_NO = ?
+	</entry>
+	
+	<entry key="selectCartlist">
+		SELECT CART_NO, PRO_NAME, PRO_EFFICACY, PRO_IMG_PATH, CART_AMOUNT, (PRO_PRICE * CART_AMOUNT) TOTAL_P 
+		FROM PRODUCT P, MY_CART C, MEMBER M  
+		WHERE C.MEM_NO = M.MEM_NO AND 
+		C.PRO_NO = P.PRO_NO AND 
+		M.MEM_STATUS = 'Y' AND 
+		P.PRO_STATUS = 'Y' AND 
+		M.MEM_No = ? AND 
+		C.CART_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectDetailPurchase">
+		SELECT P.PRO_NAME, P.PRO_EFFICACY, (P.PRO_PRICE*M.CART_AMOUNT) TOT, M.CART_AMOUNT, M.CART_STATUS 
+		FROM MY_CART M, PRODUCT P  
+		WHERE M.PRO_NO = P.PRO_NO AND 
+        M.MEM_NO = ?  AND 
+        CART_STATUS='P' AND 
+        CART_NO = ?
+	</entry>
+	
+		<entry key="getAllP">
+		SELECT PUR_NO, PUR_ADDRESS, CARTLIST, TO_CHAR(PUR_DATE, 'YYYYMMDD') P, TO_CHAR(SYSDATE, 'YYYYMMDD') D,  TO_CHAR(SYSDATE-1, 'YYYYMMDD') D1,  TO_CHAR(SYSDATE-2, 'YYYYMMDD') D2
+		FROM PURCHASE
+	</entry>
+	
+	<entry key="getCartPnamePrice">
+		SELECT PRO_NAME, CART_AMOUNT, PRO_PRICE 
+		FROM MY_CART 
+		LEFT JOIN PRODUCT USING(PRO_NO) 
+		WHERE CART_NO = ? 
+	</entry>
+	
+</properties>

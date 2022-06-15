@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectListCount">
+		SELECT COUNT(*) "COUNT"
+		FROM MAGAZINE
+		WHERE MAGAZINE_STATUS ='Y'
+	</entry>
+	
+	<entry key="selectList">
+		SELECT *
+		FROM(SELECT ROWNUM RNUM, A.*
+		    FROM(SELECT MAGAZINE_NO, MAGAZINE_TITLE, TO_CHAR(MAGAZINE_DATE,'YYYY.MM.DD') "LD", MAGAZINE_VIEWS, MAGAZINE_IMG_PATH
+		         FROM MAGAZINE
+		         WHERE MAGAZINE_STATUS = 'Y'
+		         ORDER BY MAGAZINE_DATE DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectList2">
+		SELECT *
+		FROM(SELECT ROWNUM RNUM, A.*
+		    FROM(SELECT MAGAZINE_NO, MAGAZINE_TITLE, TO_CHAR(MAGAZINE_DATE,'YYYY.MM.DD') "LD", MAGAZINE_VIEWS, MAGAZINE_IMG_PATH
+		         FROM MAGAZINE
+		         WHERE MAGAZINE_STATUS = 'Y'
+		         ORDER BY MAGAZINE_VIEWS DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE MAGAZINE
+		   SET MAGAZINE_VIEWS = MAGAZINE_VIEWS + 1
+		 WHERE MAGAZINE_NO = ?
+		   AND MAGAZINE_STATUS = 'Y'
+	</entry>
+
+ 	<entry key="selectMagazine">
+ 	SELECT MAGAZINE_NO, MAGAZINE_TITLE, MAGAZINE_DESCRIPTION, TO_CHAR(MAGAZINE_DATE, 'YYYY.MM.DD') "DD", MAGAZINE_VIEWS, MAGAZINE_IMG_PATH
+	  FROM MAGAZINE
+	 WHERE MAGAZINE_NO = ?
+	   AND MAGAZINE_STATUS = 'Y'
+	 </entry>
+	 	
+	<entry key="insertMagazine">
+	INSERT INTO MAGAZINE(MAGAZINE_NO, MAGAZINE_TITLE, MAGAZINE_DESCRIPTION, MAGAZINE_IMG_PATH, MAGAZINE_STATUS, MAGAZINE_VIEWS) 
+	VALUES(SEQ_MAGAZINE.NEXTVAL, ?, ?, ?, 'Y', 0)
+	</entry>
+	
+	<entry key="selectSearchListCount">
+		SELECT COUNT(*) "COUNT"
+		FROM MAGAZINE
+		WHERE MAGAZINE_TITLE LIKE ?
+		  AND MAGAZINE_STATUS ='Y'
+	</entry>
+	
+
+	<entry key="selectSearch">
+		SELECT *
+		FROM(SELECT ROWNUM RNUM, A.*
+		    FROM(SELECT MAGAZINE_NO, MAGAZINE_TITLE, TO_CHAR(MAGAZINE_DATE,'YYYY.MM.DD') "LD", MAGAZINE_VIEWS, MAGAZINE_IMG_PATH
+		         FROM MAGAZINE
+		         WHERE MAGAZINE_STATUS = 'Y'
+		         AND MAGAZINE_TITLE LIKE ?
+		         ORDER BY MAGAZINE_DATE DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="updateMagazine">
+		UPDATE MAGAZINE 
+		   SET MAGAZINE_TITLE = ? 
+		     , MAGAZINE_DESCRIPTION = ? 
+		     , MAGAZINE_IMG_PATH = ? 
+		 WHERE MAGAZINE_NO = ?
+	</entry>
+
+	<entry key="updateMagazine2">
+		UPDATE MAGAZINE 
+		   SET MAGAZINE_TITLE = ? 
+		     , MAGAZINE_DESCRIPTION = ? 
+		 WHERE MAGAZINE_NO = ?
+	</entry>
+	
+	<entry key="deleteMagazine">
+		UPDATE MAGAZINE
+		   SET MAGAZINE_STATUS = 'N'
+		 WHERE MAGAZINE_NO = ?
+	</entry>
+
+</properties>
+
+
+
+
+

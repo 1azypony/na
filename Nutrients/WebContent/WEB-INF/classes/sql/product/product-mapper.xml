@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM PRODUCT
+		WHERE PRO_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectListCountAdmin">
+		SELECT COUNT(*) COUNT
+		FROM PRODUCT
+	</entry>
+	
+	<entry key="selectList">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.* 
+		     FROM(SELECT PRO_NO, PRO_NAME, PRO_PRICE, PRO_EFFICACY, PRO_IMG_PATH 
+		          FROM PRODUCT P 
+		          WHERE P.PRO_STATUS = 'Y' 
+		          ORDER BY PRO_ENROLL_DATE DESC)A) 
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>
+	
+	<entry key="selectListAdmin">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.* 
+		     FROM(SELECT PRO_NO, PRO_NAME, PRO_PRICE, PRO_STOCK, PRO_IMG_PATH, TO_CHAR(PRO_ENROLL_DATE, 'YYYYMMDD') D, PRO_STATUS
+		          FROM PRODUCT P 
+		          ORDER BY PRO_NO DESC)A) 
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>
+	
+	<entry key="selectList2">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.* 
+		     FROM(SELECT PRO_NO, PRO_NAME, PRO_PRICE, PRO_EFFICACY, PRO_IMG_PATH 
+		          FROM PRODUCT P 
+		          WHERE P.PRO_STATUS = 'Y' 
+		          ORDER BY PRO_PRICE DESC)A) 
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>
+	
+	<entry key="selectList3">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.* 
+		     FROM(SELECT PRO_NO, PRO_NAME, PRO_PRICE, PRO_EFFICACY, PRO_IMG_PATH 
+		          FROM PRODUCT P 
+		          WHERE P.PRO_STATUS = 'Y' 
+		          ORDER BY PRO_PRICE ASC)A) 
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>	
+	
+	<entry key="selectPro">
+		SELECT PRO_NO, PRO_NAME, PRO_PRICE, PRO_EFFICACY, PRO_DESCRIPTION, PRO_IMG_PATH 
+		FROM PRODUCT 
+		WHERE PRO_STATUS = 'Y' 
+		AND PRO_NO = ?
+	</entry>
+	
+	<entry key="selectSearchListCount">
+		SELECT COUNT(*) COUNT
+		FROM PRODUCT
+		WHERE (PRO_NAME LIKE '%' || ? || '%'
+		OR PRO_EFFICACY LIKE '%' || ? || '%') 
+		AND PRO_STATUS = 'Y'	
+	</entry>
+	
+	<entry key="selectSearchListCountAdmin">
+		SELECT COUNT(*) COUNT
+		FROM PRODUCT
+		WHERE (PRO_NAME LIKE '%' || ? || '%') 	
+	</entry>
+
+	<entry key="selectSearchList">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.* 
+		     FROM(SELECT PRO_NO, PRO_NAME, PRO_PRICE, PRO_EFFICACY, PRO_IMG_PATH 
+				  FROM PRODUCT P 
+				  WHERE ( PRO_NAME LIKE '%' || ? || '%' AND P.PRO_STATUS = 'Y' ) 
+				  OR ( PRO_EFFICACY LIKE '%' || ? || '%' AND P.PRO_STATUS = 'Y' ) 
+				  AND P.PRO_STATUS = 'Y' 
+				  ORDER BY PRO_ENROLL_DATE DESC)A) 
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>
+	
+	<entry key="selectSearchListAdmin">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.* 
+		     FROM(SELECT PRO_NO, PRO_NAME, PRO_PRICE, PRO_STOCK, PRO_IMG_PATH, TO_CHAR(PRO_ENROLL_DATE, 'YYYYMMDD') D, PRO_STATUS 
+				  FROM PRODUCT P 
+				  WHERE ( PRO_NAME LIKE '%' || ? || '%' ) 
+				  ORDER BY PRO_ENROLL_DATE DESC)A) 
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>
+	
+	<entry key="selectSearchList12">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.* 
+		     FROM(SELECT PRO_NO, PRO_NAME, PRO_PRICE, PRO_EFFICACY, PRO_IMG_PATH 
+				  FROM PRODUCT P 
+				  WHERE ( PRO_NAME LIKE '%' || ? || '%' AND P.PRO_STATUS = 'Y' ) 
+				  OR ( PRO_EFFICACY LIKE '%' || ? || '%' AND P.PRO_STATUS = 'Y' ) 
+				  AND P.PRO_STATUS = 'Y' 
+				  ORDER BY PRO_PRICE DESC)A) 
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>
+	
+	<entry key="selectSearchList13">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.* 
+		     FROM(SELECT PRO_NO, PRO_NAME, PRO_PRICE, PRO_EFFICACY, PRO_IMG_PATH 
+				  FROM PRODUCT P 
+				  WHERE ( PRO_NAME LIKE '%' || ? || '%' AND P.PRO_STATUS = 'Y' ) 
+				  OR ( PRO_EFFICACY LIKE '%' || ? || '%' AND P.PRO_STATUS = 'Y' ) 
+				  AND P.PRO_STATUS = 'Y' 
+				  ORDER BY PRO_PRICE ASC)A) 
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>	
+	
+	<entry key="selectSearchListCount2">
+		SELECT COUNT(*) COUNT 
+		FROM PRODUCT 
+		WHERE PRO_EFFICACY = ? 
+		AND ( PRO_PRICE BETWEEN ? AND ? ) 
+		AND PRO_STATUS = 'Y'		
+	</entry>
+
+	<entry key="selectSearchList2">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.* 
+		     FROM(SELECT PRO_NO, PRO_NAME, PRO_PRICE, PRO_EFFICACY, PRO_IMG_PATH 
+				  FROM PRODUCT P 
+				  WHERE ( PRO_EFFICACY = ? AND P.PRO_STATUS = 'Y' ) 
+				  AND ( (PRO_PRICE BETWEEN ? AND ? ) AND P.PRO_STATUS = 'Y' ) 
+				  ORDER BY PRO_ENROLL_DATE DESC)A) 
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>	
+	
+	<entry key="selectSearchList21">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.* 
+		     FROM(SELECT PRO_NO, PRO_NAME, PRO_PRICE, PRO_EFFICACY, PRO_IMG_PATH 
+				  FROM PRODUCT P 
+				  WHERE ( PRO_EFFICACY = ? AND P.PRO_STATUS = 'Y' ) 
+				  AND ( (PRO_PRICE BETWEEN ? AND ? ) AND P.PRO_STATUS = 'Y' ) 
+				  ORDER BY PRO_PRICE DESC)A) 
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>		
+	
+	<entry key="selectSearchList22">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.* 
+		     FROM(SELECT PRO_NO, PRO_NAME, PRO_PRICE, PRO_EFFICACY, PRO_IMG_PATH 
+				  FROM PRODUCT P 
+				  WHERE ( PRO_EFFICACY = ? AND P.PRO_STATUS = 'Y' ) 
+				  AND ( (PRO_PRICE BETWEEN ? AND ? ) AND P.PRO_STATUS = 'Y' ) 
+				  ORDER BY PRO_PRICE ASC)A) 
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>	
+	
+	<entry key="selectProDetail">
+		SELECT PRO_NO, PRO_NAME, PRO_PRICE, PRO_STOCK, PRO_EFFICACY, PRO_DESCRIPTION, PRO_IMG_PATH, TO_CHAR(PRO_ENROLL_DATE, 'YYYYMMDD') D , PRO_STATUS 
+		FROM PRODUCT 
+		WHERE PRO_NO = ? 
+	</entry>
+	
+	<entry key="insertProduct">
+
+		INSERT INTO PRODUCT (PRO_NO, PRO_NAME, PRO_PRICE, PRO_STOCK, PRO_EFFICACY, PRO_DESCRIPTION, PRO_IMG_PATH, PRO_ENROLL_DATE, PRO_STATUS)
+		VALUES (SEQ_PRO.NEXTVAL, ?, ?, ?, ?, ?, ?, SYSDATE, ?)
+
+	</entry>
+	
+	<entry key="updateProduct1">
+		UPDATE PRODUCT 
+		SET 
+		PRO_NAME = ?, 
+		PRO_PRICE = ?, 
+		PRO_STOCK = ?, 
+		PRO_EFFICACY = ?, 
+		PRO_DESCRIPTION = ?, 
+		PRO_IMG_PATH = ?, 
+		PRO_STATUS = ? 
+		WHERE PRO_NO = ? 
+	</entry>
+	
+	<entry key="updateProduct2">
+		UPDATE PRODUCT 
+		SET 
+		PRO_NAME = ?, 
+		PRO_PRICE = ?, 
+		PRO_STOCK = ?, 
+		PRO_EFFICACY = ?, 
+		PRO_DESCRIPTION = ?, 
+		PRO_STATUS = ? 
+		WHERE PRO_NO = ? 
+	</entry>
+	
+	<entry key="deleteProductAdmin">
+		DELETE FROM PRODUCT 
+		WHERE PRO_NO = ? 
+	</entry>
+	
+
+</properties>

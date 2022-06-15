@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectMember">
+	SELECT * FROM MEMBER WHERE MEM_ID=?  
+	</entry>
+	
+	<entry key="updateMemberInfo">
+	UPDATE MEMBER SET MEM_PWD = ?, MEM_NAME = ? WHERE MEM_ID=? AND MEM_PWD=? AND MEM_STATUS='Y'
+	</entry>
+	
+	<entry key="memberDelete">
+	UPDATE MEMBER SET MEM_STATUS='N' 
+				 WHERE MEM_ID=? AND MEM_PWD=? AND MEM_STATUS='Y'
+	</entry>
+	
+	<entry key="orderList">
+	SELECT * FROM PURCHASE P1 
+	INNER JOIN PRODUCT P2 USING(PRO_NO) 
+	WHERE MEM_NO = ?
+	</entry>
+	
+	<!-- 
+	<entry key="selectCartList">
+	SELECT CARTLIST
+	FROM PURCHASE 
+	WHERE PUR_STATUS = '주문완료' AND
+    MEM_NO = ?
+	</entry> -->
+	
+	<entry key="selectMypagePurchaseLsit">
+	SELECT *  
+	FROM (SELECT ROWNUM RNUM, A.* 
+      FROM(SELECT P.PRO_IMG_PATH, P.PRO_NAME, PRO_EFFICACY,(P.PRO_PRICE * M.CART_AMOUNT) TOT, M.CART_AMOUNT, M.CART_NO  
+            FROM MY_CART M, PRODUCT P  
+            WHERE M.PRO_NO = P.PRO_NO AND 
+            M.MEM_NO = ? AND  
+            CART_STATUS = 'P' 
+            ORDER BY CART_NO DESC)A) 
+     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectListCount">
+	SELECT COUNT(*) COUNT
+	FROM PURCHASE
+	WHERE PUR_STATUS = '주문완료'
+	</entry>
+	
+	<entry key="selectListCount9">
+	SELECT COUNT(*) COUNT 
+	FROM PURCHASE
+	WHERE PUR_STATUS = '주문완료' 
+	AND MEM_NO = ? 
+	</entry>
+	
+	<entry key="selectListCount8">
+		SELECT COUNT(*)COUNT  
+		FROM MY_CART M, PRODUCT P  
+		WHERE M.PRO_NO = P.PRO_NO AND 
+		M.MEM_NO = ? AND  
+		CART_STATUS = 'P' 
+		ORDER BY CART_NO DESC
+	</entry>
+	
+	
+	<entry key="selectReview">
+		SELECT COUNT(*) C FROM REVIEW WHERE PUR_NO = ?
+	</entry>
+	
+	<entry key="selectPurProduct">
+	  SELECT P.PRO_NAME, M.CART_NO FROM MY_CART M, PRODUCT P 
+	  WHERE M.PRO_NO = P.PRO_NO AND 
+      M.CART_NO = ?
+	</entry>
+	
+	<entry key="selectMyCartList">
+	SELECT * FROM PURCHASE
+	</entry>
+	
+	<entry key="insertMyReview">
+	INSERT INTO REVIEW VALUES(SEQ_REVIEW.NEXTVAL, ?, ?, SYSDATE, 0, ?, 'Y', ?)
+	</entry>
+
+	
+	<entry key="updateMyReview">
+	 UPDATE MY_CART SET CART_STATUS ='R' WHERE CART_NO = ?
+	</entry>
+	
+</properties>

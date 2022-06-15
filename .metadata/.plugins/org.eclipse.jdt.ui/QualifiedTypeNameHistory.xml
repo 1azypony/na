@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="com.na.template.JDBCTemplate"/>
+<fullyQualifiedTypeName name="com.na.user.member.model.dao.MemberDao"/>
+<fullyQualifiedTypeName name="com.na.user.product.model.dao.ProductDao"/>
+<fullyQualifiedTypeName name="com.na.user.product.model.service.ProductService"/>
+<fullyQualifiedTypeName name="java.util.Properties"/>
+<fullyQualifiedTypeName name="javax.mail.Session"/>
+<fullyQualifiedTypeName name="javax.mail.PasswordAuthentication"/>
+<fullyQualifiedTypeName name="javax.mail.internet.MimeMessage"/>
+<fullyQualifiedTypeName name="javax.mail.internet.InternetAddress"/>
+<fullyQualifiedTypeName name="javax.mail.Message"/>
+<fullyQualifiedTypeName name="javax.mail.Transport"/>
+<fullyQualifiedTypeName name="javax.mail.internet.AddressException"/>
+<fullyQualifiedTypeName name="javax.mail.MessagingException"/>
+<fullyQualifiedTypeName name="com.na.user.info.model.dao.InfoDao"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="com.na.template.model.vo.PageInfo"/>
+<fullyQualifiedTypeName name="com.na.user.info.model.vo.Notice"/>
+<fullyQualifiedTypeName name="com.na.user.info.model.service.InfoService"/>
+<fullyQualifiedTypeName name="com.na.admin.member.model.dao.MemberDao"/>
+<fullyQualifiedTypeName name="com.na.admin.member.model.service.MemberService"/>
+<fullyQualifiedTypeName name="org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload"/>
+<fullyQualifiedTypeName name="com.oreilly.servlet.MultipartRequest"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.na.template.MyFileRenamePolicy"/>
+<fullyQualifiedTypeName name="com.na.user.product.model.vo.Product"/>
+<fullyQualifiedTypeName name="com.na.admin.product.model.service.ProductService"/>
+<fullyQualifiedTypeName name="com.na.user.member.model.service.MemberService"/>
+<fullyQualifiedTypeName name="com.na.admin.review.model.service.ReviewService"/>
+<fullyQualifiedTypeName name="com.na.user.review.model.dao.ReviewDao"/>
+<fullyQualifiedTypeName name="com.na.user.review.model.vo.Review"/>
+<fullyQualifiedTypeName name="com.na.user.info.model.vo.Qna"/>
+<fullyQualifiedTypeName name="com.na.user.order.model.service.OrderService"/>
+<fullyQualifiedTypeName name="com.na.user.order.model.dao.OrderDao"/>
+<fullyQualifiedTypeName name="com.na.user.order.model.vo.Purchase"/>
+<fullyQualifiedTypeName name="com.na.user.member.model.vo.Member"/>
+</qualifiedTypeNameHistroy>

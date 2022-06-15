@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectMyReviewCount">
+		SELECT COUNT(*) COUNT 
+		FROM REVIEW 
+        LEFT JOIN PURCHASE USING (PUR_NO) 
+        LEFT JOIN MEMBER USING (MEM_NO) 
+		WHERE REVIEW_STATUS = 'Y' 
+        AND MEM_NO = ? 
+	</entry>
+	
+	<entry key="selectMyReviewList">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.* 
+		     FROM(SELECT REVIEW_NO, REVIEW_TITLE, MEM_ID, TO_CHAR(REVIEW_DATE, 'YYYYMMDD') D 
+		          FROM REVIEW R 
+                  LEFT JOIN PURCHASE USING (PUR_NO)
+                  LEFT JOIN MEMBER USING (MEM_NO)
+		          WHERE R.REVIEW_STATUS = 'Y' 
+                  AND MEM_NO = ? 
+		          ORDER BY R.REVIEW_NO DESC )A) 
+		WHERE RNUM BETWEEN ? AND ?	
+	</entry>
+	
+   <!-- 사진리스트 -->
+   <entry key="selectThumbnailList">
+    SELECT REVIEW_NO, REVIEW_TITLE, REVIEW_COUNT, REVIEW_PHOTO_PATH  
+    FROM REVIEW R
+    JOIN PURCHASE ON(PUR_NO = PRO_NO)   
+    ORDER BY REVIEW_COUNT DESC     
+   </entry>
+   
+   <entry key="selectListCount">
+   SELECT COUNT(*) COUNT
+   FROM REVIEW
+   WHERE REVIEW_STATUS = 'Y'
+   </entry>
+   
+   <entry key="selectreviewList">
+   SELECT *
+   FROM(SELECT ROWNUM RNUM, A.*
+          FROM (SELECT REVIEW_NO, REVIEW_TITLE, MEM_ID, TO_CHAR(REVIEW_DATE,'YYYY-MM-DD') "D1",REVIEW_COUNT
+                    FROM REVIEW R
+                    LEFT JOIN PURCHASE P USING (PUR_NO)
+                    LEFT JOIN MEMBER M USING (MEM_NO)
+                     WHERE REVIEW_STATUS = 'Y' 
+                    ORDER BY "D1" DESC ) A )
+    WHERE RNUM BETWEEN ? AND ?  
+   </entry>
+   
+   <entry key="selectreviewList2">
+   SELECT *
+   FROM(SELECT ROWNUM RNUM, A.*
+          FROM (SELECT REVIEW_NO, REVIEW_TITLE, MEM_ID, TO_CHAR(REVIEW_DATE,'YYYY-MM-DD') "D1",REVIEW_COUNT
+                    FROM REVIEW R
+                    LEFT JOIN PURCHASE P USING (PUR_NO)
+                    LEFT JOIN MEMBER M USING (MEM_NO)
+                    ORDER BY REVIEW_COUNT DESC ) A )
+    WHERE RNUM BETWEEN ? AND ?  
+   </entry>
+	
+	<entry key="selectReview">
+	SELECT REVIEW_NO, REVIEW_TITLE, MEM_ID, TO_CHAR(REVIEW_DATE,'YYYY-MM-DD') "D1",REVIEW_DESCRIPTION,REVIEW_PHOTO_PATH
+	FROM REVIEW R
+	LEFT JOIN PURCHASE P USING (PUR_NO)
+	LEFT JOIN MEMBER M USING (MEM_NO)
+	WHERE R.REVIEW_NO = ?
+	ORDER BY "D1" DESC
+	</entry>
+	
+	<entry key="selectThumbnailList">
+	SELECT ROWNUM, A.* 
+	FROM 
+	(SELECT REVIEW_NO, REVIEW_PHOTO_PATH, REVIEW_TITLE, REVIEW_COUNT
+	    FROM REVIEW
+	    ORDER BY REVIEW_COUNT DESC) "A"
+	WHERE ROWNUM BETWEEN 1 AND 3
+	</entry>
+	
+	<entry key="increaseCount">
+	 UPDATE REVIEW
+	    SET REVIEW_COUNT = REVIEW_COUNT + 1
+	  WHERE REVIEW_NO = ? 
+	    AND REVIEW_STATUS = 'Y'           
+	</entry>
+	
+	<entry key="selectReviewad">
+	SELECT REVIEW_NO, REVIEW_TITLE, MEM_ID, TO_CHAR(REVIEW_DATE,'YYYY-MM-DD') "D1",REVIEW_DESCRIPTION
+	FROM REVIEW R
+	LEFT JOIN PURCHASE P USING (PUR_NO)
+	LEFT JOIN MEMBER M USING (MEM_NO)
+	WHERE R.REVIEW_NO = ? 
+	ORDER BY "D1" DESC
+	</entry>
+	
+	<entry key="deleteReview">
+	UPDATE REVIEW
+	     SET REVIEW_STATUS = 'N'
+	   WHERE REVIEW_NO = ?		
+	</entry>
+	
+   <entry key="selectListCountad">
+   SELECT COUNT(*) COUNT
+   FROM REVIEW
+   WHERE REVIEW_STATUS = 'Y'
+   </entry>
+   
+   <entry key="selectreviewListad">
+   SELECT *
+   FROM(SELECT ROWNUM RNUM, A.*
+          FROM (SELECT REVIEW_NO, REVIEW_TITLE, MEM_ID, TO_CHAR(REVIEW_DATE,'YYYY-MM-DD') "D1",REVIEW_COUNT
+                    FROM REVIEW R
+                    LEFT JOIN PURCHASE P USING (PUR_NO)
+                    LEFT JOIN MEMBER M USING (MEM_NO)
+                    WHERE REVIEW_STATUS = 'Y' 
+                    ORDER BY "D1" DESC ) A )
+    WHERE RNUM BETWEEN ? AND ?  
+   </entry>
+	
+<!-- 검색 -->
+  <entry key="selectSearchListCountad">
+  SELECT COUNT(*) COUNT
+   FROM REVIEW
+   WHERE REVIEW_TITLE LIKE ?
+   AND REVIEW_STATUS = 'Y'
+  </entry>
+  
+   <entry key="selectSearchListCountad2">
+  SELECT COUNT(*) COUNT
+   FROM REVIEW
+   LEFT JOIN PURCHASE USING(PUR_NO)
+   LEFT JOIN MEMBER USING(MEM_NO)
+   WHERE MEM_ID LIKE ?
+   AND REVIEW_STATUS = 'Y'
+  </entry>
+  
+  <entry key="searchReviewListad">
+  SELECT *
+   FROM(SELECT ROWNUM RNUM, A.*
+          FROM (SELECT REVIEW_NO, REVIEW_TITLE, MEM_ID, TO_CHAR(REVIEW_DATE,'YYYY-MM-DD') "D1",REVIEW_COUNT
+                    FROM REVIEW R
+                    LEFT JOIN PURCHASE P USING (PUR_NO)
+                    LEFT JOIN MEMBER M USING (MEM_NO)
+                    WHERE REVIEW_STATUS = 'Y' 
+                    AND REVIEW_TITLE LIKE ? 
+                    ORDER BY "D1" DESC ) A )
+    WHERE RNUM BETWEEN ? AND ?  
+  </entry>
+  
+   <entry key="searchReviewListad2">
+  SELECT *
+   FROM(SELECT ROWNUM RNUM, A.*
+          FROM (SELECT REVIEW_NO, REVIEW_TITLE, MEM_ID, TO_CHAR(REVIEW_DATE,'YYYY-MM-DD') "D1",REVIEW_COUNT
+                    FROM REVIEW R
+                    LEFT JOIN PURCHASE P USING (PUR_NO)
+                    LEFT JOIN MEMBER M USING (MEM_NO)
+                    WHERE REVIEW_STATUS = 'Y' 
+                    AND MEM_ID LIKE ? 
+                    ORDER BY "D1" DESC ) A )
+    WHERE RNUM BETWEEN ? AND ?  
+  </entry>
+
+	
+	
+
+</properties>
